@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="home">Home</string>
-    <string name="settings">Settings</string>
-    <string name="share">Share</string>
-    <string name="about_us">About Us</string>
-    <string name="logout">Logout</string>
+    <string name="app_name">Security Systems Rapped</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
+    <string name="home">Inicio</string>
+    <string name="settings">Configuración</string>
+    <string name="share">Compartir</string>
+    <string name="help">Ayuda</string>
+    <string name="logout">Cerrar Sesión</string>
     <string name="grupoweb_gmail_com">GrupoWeb@gmail.com</string>
+    <string name="add">Agregar</string>
+    <string name="eliminar_un_dispositivo">Eliminar un dispositivo</string>
+    <string name="info">Infomación</string>
+    <string name="devices">Dispositivos</string>
 </resources>

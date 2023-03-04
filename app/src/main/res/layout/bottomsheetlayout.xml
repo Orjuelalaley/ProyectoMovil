@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -9,10 +10,10 @@
     <ImageView
         android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/baseline_remove_circle_24"
+        android:src="@drawable/round_remove_24"
         android:layout_gravity="center|top"
         android:scaleType="centerCrop"
-        android:contentDescription="TODO" />
+        tools:ignore="ContentDescription"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,26 +23,27 @@
 
         <TextView
             android:id="@+id/createText"
+            style="@style/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="viewStart"
-            android:text="Create"
+            android:text="@string/add"
             android:padding="8dp"
-            android:textColor="@color/black"
             android:layout_marginStart="12dp"
             android:layout_marginTop="5dp"
-            android:textSize="25dp" />
+            android:textSize="25sp" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_clear_24"
-            android:layout_marginLeft="250dp"
+            android:src="@drawable/baseline_close_24"
+            android:layout_marginStart="250dp"
             android:layout_marginTop="8dp"
-            android:id="@+id/cancelButton"/>
+            android:id="@+id/cancelButton"
+            android:theme="@style/text"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/layoutVideo"
@@ -49,18 +51,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:padding="10dp">
+        android:padding="10dp"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_upload_24"/>
+            android:src="@drawable/baseline_devices_24"
+            android:theme="@style/text"
+            tools:ignore="ContentDescription">
+        </ImageView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upload a video"
-            android:textColor="@color/black"
+            android:text="Agregar un dispositivo"
+            style="@style/text"
             android:layout_marginLeft="30dp"
             android:textSize="16sp"/>
 
@@ -71,19 +77,20 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="10dp"
+        tools:ignore="UseCompoundDrawables">
 
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_whatshot_24"/>
+            android:src="@drawable/baseline_edit_24" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create a short"
-            android:textColor="@color/black"
+            android:text="Editar información de un dispositivo"
+            style="@style/text"
             android:layout_marginLeft="30dp"
             android:textSize="16sp"/>
 
@@ -95,6 +102,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
+        style="@style/text"
         android:paddingRight="10dp"
         android:paddingTop="10dp"
         android:paddingBottom="30dp">
@@ -103,13 +111,13 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_vibration_24"/>
+            android:src="@drawable/baseline_delete_24"/>
 
         <TextView
+            style="@style/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Go live"
-            android:textColor="@color/black"
+            android:text="@string/eliminar_un_dispositivo"
             android:layout_marginLeft="30dp"
             android:textSize="16sp"/>
 

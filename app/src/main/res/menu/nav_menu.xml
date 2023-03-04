@@ -22,8 +22,7 @@
             android:icon="@drawable/baseline_info_24"
             android:title="@string/help"/>
     </group>
-    <item
-        android:title="">
+    <item>
         <menu>
             <item
                 android:id="@+id/nav_logout"

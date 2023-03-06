@@ -1,73 +1,77 @@
 package com.example.proyectomovil;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+
 import com.example.proyectomovil.databinding.ActivityMainBinding;
+import com.example.proyectomovil.utils.AlertUtils;
 import com.google.android.material.navigation.NavigationView;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ActivityMainBinding binding;
-    private DrawerLayout drawerLayout;
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new HomeFragment());
-
-        binding.bottomNavigationView.setBackground(null);
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-
-            switch (item.getItemId()) {
-                case R.id.nav_home:
-                    replaceFragment(new HomeFragment());
-                    break;
-                case R.id.nav_settings:
-                    replaceFragment(new SettingsFragment());
-                    break;
-                case R.id.nav_share:
-                    replaceFragment(new ShareFragment());
-                    break;
-                case R.id.nav_about:
-                    replaceFragment(new HelpFragment());
-                    break;
-            }
-
-            return true;
-        });
-
-        binding.fab.setOnClickListener(view -> showBottomDialog());
-
+        Toolbar toolbar = binding.toolbar;
+        setSupportActionBar(toolbar);
+        DrawerLayout drawerLayout = binding.getRoot();
+        binding.navView.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new HomeFragment()).commit();
+            binding.navView.setCheckedItem(R.id.nav_home);
+        }
+        //binding.fab.setOnClickListener(view -> showBottomDialog());
     }
-    private  void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
-        fragmentTransaction.commit();
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_home:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new HomeFragment()).commit();
+                break;
+            case R.id.nav_settings:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new SettingsFragment()).commit();
+                break;
+            case R.id.nav_share:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ShareFragment()).commit();
+                break;
+            case R.id.nav_help:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new HelpFragment()).commit();
+                break;
+            case R.id.nav_logout:
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                break;
+        }
+        binding.drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     private void showBottomDialog() {
@@ -75,14 +79,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.bottomsheetlayout);
-
-        LinearLayout addDevice = dialog.findViewById(R.id.layoutVideo);
+        dialog.setCancelable(true);
+        LinearLayout addDevice = dialog.findViewById(R.id.AddDevice);
         LinearLayout editDevice = dialog.findViewById(R.id.EditDevice);
         LinearLayout deleteDevice = dialog.findViewById(R.id.DeleteDevice);
 
         addDevice.setOnClickListener(v -> {
             dialog.dismiss();
-            Toast.makeText(MainActivity.this,"Agrega un Dispositivo de seguridad nuevo !",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, AddDevice.class);
+            startActivity(intent);
         });
 
         editDevice.setOnClickListener(v -> {
@@ -99,36 +104,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
-    }
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_home, new HomeFragment()).commit();
-                break;
-            case R.id.nav_settings:
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_settings, new SettingsFragment()).commit();
-                break;
-            case R.id.nav_share:
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_share, new ShareFragment()).commit();
-                break;
-            case R.id.nav_about:
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_about, new HelpFragment()).commit();
-                break;
-            case R.id.nav_logout:
-                Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show();
-                break;
-        }
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-    }
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
     }
 }

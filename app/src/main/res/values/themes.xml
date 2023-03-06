@@ -22,4 +22,11 @@
     <style name="text" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">#000000</item>
     </style>
+    <style name="StatusBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
 </resources>

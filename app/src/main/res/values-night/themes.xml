@@ -19,4 +19,11 @@
     <style name="text">
         <item name="color">#FFFFFF</item>
     </style>
+    <style name="StatusBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
 </resources>
